@@ -37,13 +37,25 @@ function HomePage(props) {
 //async(promising)-> wait intill data is loaded
 //getStaticProps(), creats props for the page at the very first before executing component page.
 
-export async function getStaticProps() {
-  //fetch data from API or read DB
-  return {
+// export async function getStaticProps() {
+//   //fetch data from API or read DB
+//   return {
+//     props:{
+//       meetups:DUMMY_MEETUPS
+//     },
+//     //data update after 10 sec after deployment.
+//     revalidate:10
+//   }
+// }
+
+export async function getServerSideProps(context){
+  const req=context.req
+  const res=context.res
+  return{
     props:{
       meetups:DUMMY_MEETUPS
     }
-  }
+  };
 }
 
 export default HomePage;
@@ -67,4 +79,14 @@ When you use the getStaticProps function in a Next.js page, the page is automati
 The data returned from getStaticProps is used to generate the static HTML pages.
 The generated HTML pages are stored and served to clients without the need for additional server-side processing.
 These static pages can be served from a Content Delivery Network (CDN) for improved performance and lower latency.
+-npm run build(show all)
+
+--SSG
+validate Data for each incoming request.
+Not running on the build process, but running on server side.
+
+--differences
+->SSG is good for Authentication like pre rendering Staric HTML Content.
+->SSR is good for dynamic data which is changing after seconds or  multiple APi req related.
+
 */
